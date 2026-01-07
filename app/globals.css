@@ -1,17 +1,16 @@
 @import "tailwindcss";
 
 :root {
-  /* Premium Dark/Light Theme Colors */
-  --background: #fafafa;
-  /* Soft white */
-  --foreground: #1a1a1a;
-  /* Deep charcoal */
-  --primary: #2563eb;
-  /* Vibrant Blue */
-  --secondary: #64748b;
-  /* Slate */
-  --accent: #f59e0b;
-  /* Amber for highlights */
+  /* Industrial / Utilitarian Palette */
+  --background: #ffffff;
+  --foreground: #111111;
+  /* Matte Black */
+  --primary: #FF4500;
+  /* Safety Orange / Red-Orange */
+  --secondary: #333333;
+  /* Dark Grey */
+  --muted: #f4f4f4;
+  /* Light Grey for backgrounds */
 }
 
 @theme inline {
@@ -19,21 +18,20 @@
   --color-foreground: var(--foreground);
   --color-primary: var(--primary);
   --color-secondary: var(--secondary);
-  --color-accent: var(--accent);
-  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --color-muted: var(--muted);
+  --font-sans: var(--font-geist-sans), Inter, Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0f172a;
-    /* Deep Slate Blue/Black */
-    --foreground: #f8fafc;
-    /* Off-white */
-    --primary: #3b82f6;
-    /* Lighter Blue */
-    --secondary: #94a3b8;
-    /* Lighter Slate */
+    --background: #111111;
+    /* Matte Black */
+    --foreground: #ffffff;
+    --primary: #FF4500;
+    /* Safety Orange */
+    --secondary: #999999;
+    --muted: #1a1a1a;
   }
 }
 
@@ -45,14 +43,19 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Custom Utilities for Premium feel */
-.glass-panel {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+/* Utilitarian Utilities */
+.industrial-text {
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 700;
 }
 
-.dark .glass-panel {
-  background: rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+.box-panel {
+  border: 2px solid var(--foreground);
+  background: var(--background);
+  /* Sharp corners, no radius */
+}
+
+.dark .box-panel {
+  border: 1px solid #333;
 }

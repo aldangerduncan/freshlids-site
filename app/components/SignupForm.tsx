@@ -29,23 +29,23 @@ export default function SignupForm({ segment, title, description }: SignupFormPr
 
             if (res.ok) {
                 setStatus("success");
-                setMessage("Check your inbox! You're in.");
+                setMessage("You're on the list.");
                 setEmail("");
             } else {
                 setStatus("error");
-                setMessage(data.error || "Something went wrong.");
+                setMessage(data.error || "Error.");
             }
         } catch (error) {
             console.error(error);
             setStatus("error");
-            setMessage("Failed to submit. Please try again.");
+            setMessage("Failed.");
         }
     };
 
     return (
-        <div className="glass-panel p-8 rounded-2xl w-full max-w-md mx-auto">
-            <h3 className="text-2xl font-bold mb-2">{title}</h3>
-            <p className="text-secondary mb-6">{description}</p>
+        <div className="box-panel p-8 w-full max-w-md mx-auto">
+            <h3 className="text-2xl font-black mb-2 uppercase text-foreground">{title}</h3>
+            <p className="text-secondary mb-6 font-medium">{description}</p>
 
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
@@ -54,24 +54,24 @@ export default function SignupForm({ segment, title, description }: SignupFormPr
                         id={`email-${segment}`}
                         type="email"
                         required
-                        placeholder="Enter your email"
+                        placeholder="ENTER YOUR EMAIL"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         disabled={status === "loading" || status === "success"}
-                        className="w-full px-4 py-3 rounded-lg bg-background border border-gray-200 dark:border-gray-800 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all"
+                        className="w-full px-4 py-3 bg-muted border-2 border-transparent focus:border-foreground outline-none transition-all placeholder:text-secondary/50 font-medium"
                     />
                 </div>
 
                 <button
                     type="submit"
                     disabled={status === "loading" || status === "success"}
-                    className="w-full py-3 px-6 rounded-lg bg-foreground text-background font-medium hover:bg-foreground/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                    className="w-full py-4 px-6 bg-primary text-white font-black uppercase tracking-wider hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                 >
-                    {status === "loading" ? "Joining..." : status === "success" ? "Subscribed!" : "Sign Up"}
+                    {status === "loading" ? "PROCESSING..." : status === "success" ? "CONFIRMED" : "NOTIFY ME"}
                 </button>
 
                 {message && (
-                    <p className={`text-sm text-center ${status === "success" ? "text-green-500" : "text-red-500"}`}>
+                    <p className={`text-sm font-bold text-center uppercase ${status === "success" ? "text-green-600" : "text-red-600"}`}>
                         {message}
                     </p>
                 )}

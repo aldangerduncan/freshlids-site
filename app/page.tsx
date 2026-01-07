@@ -9,28 +9,28 @@ export default function Home() {
 
       <HowItWorks />
 
-      <section className="w-full py-20 bg-secondary/5">
+      <section className="w-full py-20 bg-muted">
         <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-16">Join the Community</h2>
+          <h2 className="text-3xl font-bold text-center mb-16 uppercase tracking-wide">Be First To Know</h2>
 
           <div className="grid md:grid-cols-2 gap-8 md:gap-16">
             <SignupForm
               segment="vending"
-              title="Vending Industry Updates"
-              description="Deep dives into the vending machine business. Market trends, tech, and opportunities."
+              title="Vending Updates"
+              description="Be the first to know where machines launch."
             />
 
             <SignupForm
               segment="moto"
-              title="Motorcycling Daily Digest"
-              description="Daily dose of two-wheeled culture. Reviews, rides, and route recommendations."
+              title="Rider Alerts"
+              description="New locations and daily digests."
             />
           </div>
         </div>
       </section>
 
-      <footer className="w-full py-8 text-center text-secondary text-sm">
-        <p>&copy; {new Date().getFullYear()} FreshLids. All rights reserved.</p>
+      <footer className="w-full py-8 text-center text-secondary text-sm font-mono uppercase">
+        <p>&copy; {new Date().getFullYear()} FreshLids. Detailed for riders.</p>
       </footer>
     </main>
   );
