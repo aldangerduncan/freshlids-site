@@ -13,17 +13,11 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-16 uppercase tracking-wide">Be First To Know</h2>
 
-          <div className="grid md:grid-cols-2 gap-8 md:gap-16">
+          <div className="flex justify-center">
             <SignupForm
               segment="vending"
               title="Vending Updates"
               description="Be the first to know where machines launch."
-            />
-
-            <SignupForm
-              segment="moto"
-              title="Rider Alerts"
-              description="New locations and daily digests."
             />
           </div>
         </div>
