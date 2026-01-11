@@ -1,4 +1,5 @@
 import { Resend } from 'resend';
+import Airtable from 'airtable';
 
 export const runtime = 'nodejs';
 
@@ -44,7 +45,33 @@ export async function POST(request) {
             });
         }
 
-        // 3. Send Admin Notification
+        // 3. Add to Airtable (Non-blocking / Log errors)
+        try {
+            const base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(process.env.AIRTABLE_BASE_ID);
+            const tableId = process.env.AIRTABLE_TABLE_ID || 'Contacts'; // Fallback to name if ID missing
+
+            // Map segment to capitalized format
+            const segmentMap = {
+                'vending': 'Vending',
+                'moto': 'Moto'
+            };
+
+            await base(tableId).create([
+                {
+                    fields: {
+                        "Email Address": email,
+                        "Newsletter Segment": segmentMap[segment] || segment // Fallback to original if not found
+                    }
+                }
+            ]);
+            console.log(`Added ${email} to Airtable (${segment})`);
+        } catch (airtableError) {
+            console.error('Airtable Error:', airtableError);
+            // We choose NOT to fail the request if Airtable fails, just log it.
+            // If you want it to be critical, move this into the main try/catch block or throw here.
+        }
+
+        // 4. Send Admin Notification
         const adminEmailPromise = resend.emails.send({
             from: fromEmail,
             to: notifyToEmail,
