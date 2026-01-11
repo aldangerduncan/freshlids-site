@@ -56,15 +56,33 @@ export async function POST(request) {
                 'moto': 'Moto'
             };
 
-            await base(tableId).create([
-                {
-                    fields: {
-                        "Email Address": email,
-                        "Newsletter Segment": segmentMap[segment] || segment // Fallback to original if not found
+            const mappedSegment = segmentMap[segment] || segment;
+
+            // Check for existing record
+            const existingRecords = await base(tableId).select({
+                filterByFormula: `{Email Address} = '${email}'`,
+                maxRecords: 1
+            }).firstPage();
+
+            if (existingRecords.length > 0) {
+                // UPDATE existing record
+                const recordId = existingRecords[0].id;
+                await base(tableId).update(recordId, {
+                    "Newsletter Segment": mappedSegment
+                });
+                console.log(`Updated ${email} to segment: ${mappedSegment}`);
+            } else {
+                // CREATE new record
+                await base(tableId).create([
+                    {
+                        fields: {
+                            "Email Address": email,
+                            "Newsletter Segment": mappedSegment
+                        }
                     }
-                }
-            ]);
-            console.log(`Added ${email} to Airtable (${segment})`);
+                ]);
+                console.log(`Added ${email} to Airtable (${mappedSegment})`);
+            }
         } catch (airtableError) {
             console.error('Airtable Error:', airtableError);
             // We choose NOT to fail the request if Airtable fails, just log it.
