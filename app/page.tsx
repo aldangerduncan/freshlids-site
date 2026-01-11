@@ -1,23 +1,25 @@
-import Hero from "./components/Hero";
-import HowItWorks from "./components/HowItWorks";
+import HeroCarousel from "./components/HeroCarousel";
 import SignupForm from "./components/SignupForm";
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-background text-foreground flex flex-col items-center">
-      <Hero />
-
-      <HowItWorks />
+      <HeroCarousel />
 
       <section className="w-full py-20 bg-muted">
         <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-16 uppercase tracking-wide">Be First To Know</h2>
+          <h2 className="text-3xl font-bold text-center mb-4 uppercase tracking-wide">Industry Intel</h2>
+          <p className="text-center text-secondary mb-12 max-w-2xl mx-auto">
+            Daily digest of what's happening in vending. Real operator insights, not marketing.
+          </p>
 
           <div className="flex justify-center">
             <SignupForm
               segment="vending"
-              title="Vending Updates"
-              description="Be the first to know where machines launch."
+              title="Vending Industry Brief"
+              description="Get the daily digest of what matters in vending."
+              variant="newsletter"
+              ctaText="GET THE DAILY VENDING INDUSTRY BRIEF"
             />
           </div>
         </div>

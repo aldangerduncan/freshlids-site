@@ -11,6 +11,8 @@
   /* Dark Grey */
   --muted: #f4f4f4;
   /* Light Grey for backgrounds */
+  --brand-blue: #29a4c5;
+  /* FreshLids Brand Blue - RGB 41, 164, 197 */
 }
 
 @theme inline {
@@ -19,6 +21,7 @@
   --color-primary: var(--primary);
   --color-secondary: var(--secondary);
   --color-muted: var(--muted);
+  --color-brand-blue: var(--brand-blue);
   --font-sans: var(--font-geist-sans), Inter, Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
 }
