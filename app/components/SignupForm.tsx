@@ -3,12 +3,14 @@
 import { useState } from "react";
 
 interface SignupFormProps {
-    segment: "vending" | "moto";
+    segment: "vending" | "moto" | "venue";
     title: string;
     description: string;
     variant?: "default" | "newsletter";
     ctaText?: string;
     showSubtext?: boolean;
+    buttonColor?: string;
+    centerText?: boolean;
 }
 
 export default function SignupForm({
@@ -17,7 +19,9 @@ export default function SignupForm({
     description,
     variant = "default",
     ctaText,
-    showSubtext = false
+    showSubtext = false,
+    buttonColor,
+    centerText = false
 }: SignupFormProps) {
     const [email, setEmail] = useState("");
     const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
@@ -54,8 +58,8 @@ export default function SignupForm({
 
     return (
         <div className={`p-8 w-full max-w-md mx-auto ${variant === "newsletter" ? "bg-background" : "box-panel"}`}>
-            <h3 className="text-2xl font-black mb-2 uppercase text-foreground">{title}</h3>
-            <p className={`mb-6 font-medium ${variant === "newsletter" ? "text-foreground" : "text-secondary"}`}>{description}</p>
+            <h3 className={`text-2xl font-black mb-2 uppercase text-foreground ${centerText ? 'text-center' : ''} whitespace-pre-line`}>{title}</h3>
+            <p className={`mb-6 font-medium whitespace-pre-line ${variant === "newsletter" ? "text-foreground" : "text-secondary"} ${centerText ? 'text-center' : ''}`}>{description}</p>
 
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
@@ -75,7 +79,7 @@ export default function SignupForm({
                 <button
                     type="submit"
                     disabled={status === "loading" || status === "success"}
-                    className="w-full py-4 px-6 bg-primary text-white font-black uppercase tracking-wider hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                    className={`w-full py-4 px-6 ${buttonColor || 'bg-primary'} text-white font-black uppercase tracking-wider hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed transition-all`}
                 >
                     {status === "loading" ? "PROCESSING..." : status === "success" ? "CONFIRMED" : (ctaText || "NOTIFY ME")}
                 </button>

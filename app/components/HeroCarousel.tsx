@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Image from "next/image";
+
 
 const slides = [
     {
@@ -53,21 +53,7 @@ export default function HeroCarousel() {
 
     return (
         <section className="relative w-full h-[85vh] md:h-screen overflow-hidden bg-background">
-            {/* Thin horizontal color bar */}
-            <div className="absolute top-0 left-0 right-0 h-1 bg-brand-blue z-30" />
 
-            {/* Logo - always visible */}
-            <div className="absolute top-8 left-6 md:left-8 z-30">
-                <div className="relative w-28 h-10 md:w-40 md:h-16">
-                    <Image
-                        src="/assets/logo.png"
-                        alt="FreshLids"
-                        fill
-                        className="object-contain dark:invert"
-                        priority
-                    />
-                </div>
-            </div>
 
             {/* Slides */}
             {slides.map((slide, index) => (
@@ -148,8 +134,8 @@ export default function HeroCarousel() {
                         key={index}
                         onClick={() => goToSlide(index)}
                         className={`w-3 h-3 rounded-full transition-all ${index === currentSlide
-                                ? "bg-white w-8"
-                                : "bg-white/50 hover:bg-white/75"
+                            ? "bg-white w-8"
+                            : "bg-white/50 hover:bg-white/75"
                             }`}
                         aria-label={`Go to slide ${index + 1}`}
                     />

@@ -30,7 +30,7 @@ export async function POST(request) {
             });
         }
 
-        if (!['vending', 'moto'].includes(segment)) {
+        if (!['vending', 'moto', 'venue'].includes(segment)) {
             return new Response(JSON.stringify({ error: 'Invalid segment' }), {
                 status: 400,
                 headers: { 'Content-Type': 'application/json' },
@@ -53,7 +53,8 @@ export async function POST(request) {
             // Map segment to capitalized format
             const segmentMap = {
                 'vending': 'Vending',
-                'moto': 'Moto'
+                'moto': 'Moto',
+                'venue': 'Venue'
             };
 
             const mappedSegment = segmentMap[segment] || segment;
@@ -112,6 +113,15 @@ export async function POST(request) {
         <p>You're on the list for Vending Machine Industry updates.</p>
         <p>Stay tuned!</p>
         <p>- Alex</p>
+      `;
+        } else if (segment === 'venue') {
+            userSubject = 'FreshLids Venue Inquiry Received';
+            userHtml = `
+        <h1>Thanks for your interest!</h1>
+        <p>We have received your inquiry about bringing FreshLids to your venue.</p>
+        <p>Our team will be in touch shortly to discuss placement and options.</p>
+        <p>Best,</p>
+        <p>The FreshLids Team</p>
       `;
         } else {
             userSubject = 'Welcome to FreshLids Moto Digest';
