@@ -20,15 +20,58 @@ export default function Header() {
                     href="/"
                     className="text-[#545454] font-bold text-lg hover:opacity-70 transition-opacity"
                 >
-                    Home
+                    HOME
                 </Link>
                 <Link
                     href="/how-it-works"
                     className="text-[#545454] font-bold text-lg hover:opacity-70 transition-opacity"
                 >
-                    How it works
+                    HOW
+                </Link>
+                <Link
+                    href="/why"
+                    className="text-[#545454] font-bold text-lg hover:opacity-70 transition-opacity"
+                >
+                    WHY
+                </Link>
+                <Link
+                    href="/partner"
+                    className="text-[#545454] font-bold text-lg hover:opacity-70 transition-opacity"
+                >
+                    PARTNER
                 </Link>
             </nav>
+
+            <div className="flex items-center gap-4 ml-auto mb-2">
+                <Link
+                    href="https://www.instagram.com/freshlidsau"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:opacity-70 transition-opacity"
+                >
+                    <Image
+                        src="/icons/instagram.png"
+                        alt="Instagram"
+                        width={72}
+                        height={72}
+                        className="w-18 h-18 object-contain"
+                    />
+                </Link>
+                <Link
+                    href="https://www.facebook.com/profile.php?id=61584922152607"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:opacity-70 transition-opacity"
+                >
+                    <Image
+                        src="/icons/facebook.png"
+                        alt="Facebook"
+                        width={72}
+                        height={72}
+                        className="w-18 h-18 object-contain"
+                    />
+                </Link>
+            </div>
         </header>
     );
 }

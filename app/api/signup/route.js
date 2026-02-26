@@ -10,7 +10,7 @@ export async function POST(request) {
 
     try {
         const body = await request.json();
-        const { email, segment, honeypot } = body;
+        const { email, segment, phone, honeypot } = body;
 
         // 1. Honeypot Check (Spam Prevention)
         if (honeypot) {
@@ -30,7 +30,7 @@ export async function POST(request) {
             });
         }
 
-        if (!['vending', 'moto', 'venue'].includes(segment)) {
+        if (!['vending', 'moto', 'venue', 'partner'].includes(segment)) {
             return new Response(JSON.stringify({ error: 'Invalid segment' }), {
                 status: 400,
                 headers: { 'Content-Type': 'application/json' },
@@ -54,7 +54,8 @@ export async function POST(request) {
             const segmentMap = {
                 'vending': 'Vending',
                 'moto': 'Moto',
-                'venue': 'Venue'
+                'venue': 'Venue',
+                'partner': 'Partner'
             };
 
             const mappedSegment = segmentMap[segment] || segment;
@@ -74,14 +75,12 @@ export async function POST(request) {
                 console.log(`Updated ${email} to segment: ${mappedSegment}`);
             } else {
                 // CREATE new record
-                await base(tableId).create([
-                    {
-                        fields: {
-                            "Email Address": email,
-                            "Newsletter Segment": mappedSegment
-                        }
-                    }
-                ]);
+                const fields = {
+                    "Email Address": email,
+                    "Newsletter Segment": mappedSegment,
+                    ...(phone ? { "Phone": phone } : {})
+                };
+                await base(tableId).create([{ fields }]);
                 console.log(`Added ${email} to Airtable (${mappedSegment})`);
             }
         } catch (airtableError) {
@@ -99,6 +98,7 @@ export async function POST(request) {
         <h2>New Signup Detected</h2>
         <p><strong>Email:</strong> ${email}</p>
         <p><strong>Segment:</strong> ${segment}</p>
+        ${phone ? `<p><strong>Phone:</strong> ${phone}</p>` : ''}
       `,
         });
 
@@ -120,6 +120,14 @@ export async function POST(request) {
         <h1>Thanks for your interest!</h1>
         <p>We have received your inquiry about bringing FreshLids to your venue.</p>
         <p>Our team will be in touch shortly to discuss placement and options.</p>
+        <p>Best,</p>
+        <p>The FreshLids Team</p>
+      `;
+        } else if (segment === 'partner') {
+            userSubject = 'FreshLids Partner Enquiry Received';
+            userHtml = `
+        <h1>Thanks for your interest in partnering with FreshLids.</h1>
+        <p>We've received your details and will be in touch shortly with full partner information and earning projections.</p>
         <p>Best,</p>
         <p>The FreshLids Team</p>
       `;
